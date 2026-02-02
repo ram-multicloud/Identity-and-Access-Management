@@ -14,7 +14,7 @@
   - **Command Line:** AWS CLI
   - **SDKs (Code):** AWS SDK, Boto3
  
-![AWS Infrastructure](images/1.png)
+<p align="center"> <img src="images/1.png" alt="AWS Infrastructure" width="300"> </p>
 ---
 
 ## 2. Azure – Accounts
