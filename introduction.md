@@ -147,3 +147,5 @@ Azure AD (now rebranded as Microsoft Entra ID) is Microsoft's cloud-based identi
 - Entitlement Management: Automated access request and approval workflows.  
 - Audit Logs and Sign-in Logs: Comprehensive activity tracking.  
 - Microsoft Graph API: Programmatic access to directory data.  
+
+<p align="center"> <img src="images/0.png" alt="AWS Infrastructure" width="600"> </p>
