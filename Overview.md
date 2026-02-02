@@ -32,6 +32,8 @@
   - **Command Line:** Azure CLI
   - **SDKs (Code):** Azure SDK
 
+
+<p align="center"> <img src="images/1.png" alt="AWS Infrastructure" width="400"> </p>
 ---
 
 ## 3. Key Differences
