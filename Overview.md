@@ -1,4 +1,4 @@
-# 🌐 Cloud Accounts Overview: AWS vs Azure
+# Cloud Accounts Overview:
 
 ## 1. AWS – Accounts
 - **Infrastructure Organization:**
@@ -13,7 +13,8 @@
   - **Browser:** AWS Management Console
   - **Command Line:** AWS CLI
   - **SDKs (Code):** AWS SDK, Boto3
-
+ 
+![AWS Infrastructure](images/1.png)
 ---
 
 ## 2. Azure – Accounts
