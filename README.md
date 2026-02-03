@@ -4,3 +4,5 @@ Identity and Access Management (Aws &amp; Azure)
 * [Introduction](./introduction.md)
 
 * [Overview](./Overview.md)
+
+* [aws-iam-policy-guide](./aws-iam-policy-guide.md)
