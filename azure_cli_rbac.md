@@ -122,3 +122,31 @@ az role assignment create \
   --role "VM Start Stop Reboot (Dev)" \
   --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP
 ```
+
+## policy for qa
+
+```json
+{
+  "Name": "Custom-VM-Full-Access",
+  "IsCustom": true,
+  "Description": "Allows full management of Virtual Machines and related resources.",
+  "Actions": [
+    "Microsoft.Compute/virtualMachines/*",
+    "Microsoft.Compute/disks/*",
+    "Microsoft.Compute/snapshots/*",
+    "Microsoft.Compute/images/*",
+    "Microsoft.Compute/availabilitySets/*",
+    "Microsoft.Network/networkInterfaces/*",
+    "Microsoft.Network/publicIPAddresses/*",
+    "Microsoft.Network/networkSecurityGroups/join/action",
+    "Microsoft.Network/virtualNetworks/subnets/join/action",
+    "Microsoft.Resources/subscriptions/resourceGroups/read",
+    "Microsoft.Resources/deployments/*"
+  ],
+  "NotActions": [],
+  "AssignableScopes": [
+    "/subscriptions/<SUBSCRIPTION_ID>"
+  ]
+}
+
+```
