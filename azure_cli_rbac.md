@@ -4,7 +4,6 @@ how to create Azure AD users and groups, then assign RBAC roles for VM access us
 
 # Diagram: Users, Groups, and Roles
 
-### ASCII Diagram
 ```ASCII
 +-----------+        +---------+        +-----------------------------+
 | Developer | -----> |   dev   | -----> | VM Start/Stop/Reboot (Custom)|
