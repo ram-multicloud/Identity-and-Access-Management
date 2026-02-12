@@ -59,8 +59,7 @@ All other VM sizes must be denied.
 
 ## Policy JSON
 
-Save the following as `policy.json`
-```
+Save the following as `policy.json
 
 ```json
 {
