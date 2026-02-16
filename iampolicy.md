@@ -1,3 +1,7 @@
+## aws iam policy only uses EC2 and S3 resources tagged with Environment=dev
+
+
+'''
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -84,3 +88,6 @@
 
   ]
 }
+
+```
+
