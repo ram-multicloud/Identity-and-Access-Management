@@ -35,60 +35,58 @@ infrastructure in a template file and deploy it as a Stack.
 6.  Creates resources in correct order
 7.  Stack creation completes
 
-------------------------------------------------------------------------
-
 ## Flow Diagram
 
-  ------------------------
-  CloudFormation Template
-  (JSON / YAML)
-
-  ------------------------
-
-           |
-           v
-
-  ------------------------
-  CloudFormation Service
-
-  ------------------------
-
-           |
-           v
-
-  ------------------------
-  AWS Resource APIs (S3,
-  EC2, IAM, VPC)
-
-  ------------------------
-
-           |
-           v
-
-  ------------------------
-  AWS Resources (S3
-  Bucket, EC2 etc.)
-
-  ------------------------
-
-------------------------------------------------------------------------
+```mermaid
+flowchart TD
+    A[CloudFormation Template] --> B[JSON / YAML]
+    B --> C[CloudFormation Service]
+    C --> D[AWS Resource APIs] --> E[S3, EC2, IAM, VPC]
+    E --> F[AWS Resources] --> G[S3 Bucket, EC2, etc.]
+```
 
 ## Template Structure
 
-{ "AWSTemplateFormatVersion": "2010-09-09", "Description": "Template
-Description", "Parameters": {}, "Resources": {}, "Outputs": {} }
+```json
+## Template Structure
 
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "TemplateDescription",
+    "Parameters": {},
+    "Resources": {},
+    "Outputs": {}
+}
+```
 ------------------------------------------------------------------------
 
 ## Example: JSON Template to Create S3 Bucket
 
-{ "AWSTemplateFormatVersion": "2010-09-09", "Description": "Create an S3
-Bucket using CloudFormation", "Resources": { "MyS3Bucket": { "Type":
-"AWS::S3::Bucket", "Properties": { "BucketName":
-"my-demo-cloudformation-bucket-12345", "VersioningConfiguration": {
-"Status": "Enabled" } } } }, "Outputs": { "BucketName": { "Description":
-"Name of the S3 bucket", "Value": { "Ref": "MyS3Bucket" } } } }
 
+```json
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Create an S3
+Bucket using CloudFormation", "Resources": { "MyS3Bucket": { "Type":"AWS::S3::Bucket",
+    "Properties": {
+        "BucketName": "my-demo-cloudformation-bucket-12345",
+        "VersioningConfiguration": {
+            "Status": "Enabled"
+        }
+    }
+}
+},
+"Outputs": {
+"BucketName": {
+    "Description": "Name of the S3 bucket",
+    "Value": {
+        "Ref": "MyS3Bucket"
+    }
+}
+}
+}
+
+```
 ------------------------------------------------------------------------
 
 ## Deployment Using AWS CLI
