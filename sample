@@ -1,0 +1,160 @@
+## Reusable Parameterized CloudFormation Template (JSON)
+
+```json
+{
+
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Reusable template - 8 Users, 4 Groups, Managed Policies with Parameters",
+
+  "Parameters": {
+
+    "User1Name": { "Type": "String", "Default": "user1" },
+    "User2Name": { "Type": "String", "Default": "user2" },
+    "User3Name": { "Type": "String", "Default": "user3" },
+    "User4Name": { "Type": "String", "Default": "user4" },
+    "User5Name": { "Type": "String", "Default": "user5" },
+    "User6Name": { "Type": "String", "Default": "user6" },
+    "User7Name": { "Type": "String", "Default": "user7" },
+    "User8Name": { "Type": "String", "Default": "user8" },
+
+    "S3ListGroupName": { "Type": "String", "Default": "S3ListGroup" },
+    "S3FullGroupName": { "Type": "String", "Default": "S3FullGroup" },
+    "EC2ListGroupName": { "Type": "String", "Default": "EC2ListGroup" },
+    "EC2FullGroupName": { "Type": "String", "Default": "EC2FullGroup" }
+
+  },
+
+  "Resources": {
+
+    /* ---------------- USERS ---------------- */
+
+    "User1": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User1Name" } }
+    },
+    "User2": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User2Name" } }
+    },
+    "User3": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User3Name" } }
+    },
+    "User4": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User4Name" } }
+    },
+    "User5": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User5Name" } }
+    },
+    "User6": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User6Name" } }
+    },
+    "User7": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User7Name" } }
+    },
+    "User8": {
+      "Type": "AWS::IAM::User",
+      "Properties": { "UserName": { "Ref": "User8Name" } }
+    },
+
+    /* ---------------- GROUPS ---------------- */
+
+    "S3ListGroup": {
+      "Type": "AWS::IAM::Group",
+      "Properties": {
+        "GroupName": { "Ref": "S3ListGroupName" },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+        ]
+      }
+    },
+
+    "S3FullGroup": {
+      "Type": "AWS::IAM::Group",
+      "Properties": {
+        "GroupName": { "Ref": "S3FullGroupName" },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+        ]
+      }
+    },
+
+    "EC2ListGroup": {
+      "Type": "AWS::IAM::Group",
+      "Properties": {
+        "GroupName": { "Ref": "EC2ListGroupName" },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+        ]
+      }
+    },
+
+    "EC2FullGroup": {
+      "Type": "AWS::IAM::Group",
+      "Properties": {
+        "GroupName": { "Ref": "EC2FullGroupName" },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+        ]
+      }
+    },
+
+    /* ---------------- ADD USERS TO GROUPS ---------------- */
+
+    "AddUsersToS3List": {
+      "Type": "AWS::IAM::UserToGroupAddition",
+      "DependsOn": ["User1", "User2", "S3ListGroup"],
+      "Properties": {
+        "GroupName": { "Ref": "S3ListGroup" },
+        "Users": [
+          { "Ref": "User1" },
+          { "Ref": "User2" }
+        ]
+      }
+    },
+
+    "AddUsersToS3Full": {
+      "Type": "AWS::IAM::UserToGroupAddition",
+      "DependsOn": ["User3", "User4", "S3FullGroup"],
+      "Properties": {
+        "GroupName": { "Ref": "S3FullGroup" },
+        "Users": [
+          { "Ref": "User3" },
+          { "Ref": "User4" }
+        ]
+      }
+    },
+
+    "AddUsersToEC2List": {
+      "Type": "AWS::IAM::UserToGroupAddition",
+      "DependsOn": ["User5", "User6", "EC2ListGroup"],
+      "Properties": {
+        "GroupName": { "Ref": "EC2ListGroup" },
+        "Users": [
+          { "Ref": "User5" },
+          { "Ref": "User6" }
+        ]
+      }
+    },
+
+    "AddUsersToEC2Full": {
+      "Type": "AWS::IAM::UserToGroupAddition",
+      "DependsOn": ["User7", "User8", "EC2FullGroup"],
+      "Properties": {
+        "GroupName": { "Ref": "EC2FullGroup" },
+        "Users": [
+          { "Ref": "User7" },
+          { "Ref": "User8" }
+        ]
+      }
+    }
+
+  }
+}
+
+
+````
