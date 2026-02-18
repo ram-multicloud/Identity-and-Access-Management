@@ -1,0 +1,101 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Reusable EC2 instance template with selectable VPC and Subnet",
+
+  "Parameters": {
+
+    "VpcId": {
+      "Type": "AWS::EC2::VPC::Id",
+      "Description": "Select existing VPC"
+    },
+
+    "SubnetId": {
+      "Type": "AWS::EC2::Subnet::Id",
+      "Description": "Select existing Subnet from selected VPC"
+    },
+
+    "InstanceType": {
+      "Type": "String",
+      "Default": "t2.micro",
+      "AllowedValues": [
+        "t2.micro",
+        "t3.micro",
+        "t3.small",
+        "t3.medium"
+      ],
+      "Description": "Select EC2 Instance Type"
+    },
+
+    "KeyName": {
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "Description": "Select existing KeyPair for SSH"
+    },
+
+    "LatestAmiId": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2",
+      "Description": "Amazon Linux 2 Latest AMI"
+    }
+
+  },
+
+  "Resources": {
+
+    "EC2SecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Enable SSH access",
+        "VpcId": { "Ref": "VpcId" },
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "-1",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+
+    "EC2Instance": {
+      "Type": "AWS::EC2::Instance",
+      "DependsOn": "EC2SecurityGroup",
+      "Properties": {
+        "InstanceType": { "Ref": "InstanceType" },
+        "SubnetId": { "Ref": "SubnetId" },
+        "ImageId": { "Ref": "LatestAmiId" },
+        "KeyName": { "Ref": "KeyName" },
+        "SecurityGroupIds": [
+          { "Ref": "EC2SecurityGroup" }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Reusable-EC2-Instance"
+          }
+        ]
+      }
+    }
+
+  },
+
+  "Outputs": {
+
+    "InstanceId": {
+      "Description": "Instance ID",
+      "Value": { "Ref": "EC2Instance" }
+    },
+
+    "PublicIP": {
+      "Description": "Public IP address",
+      "Value": { "Fn::GetAtt": ["EC2Instance", "PublicIp"] }
+    }
+
+  }
+}
