@@ -12,7 +12,9 @@ Azure Resource Manager (ARM) templates are JSON files that declare the desired s
 - Enable repeatable, idempotent deployments across environments.
 - Support dependencies, parameterization, and outputs for modular, reusable infrastructure.
 
+
 ---
+
 
 ## How to Write ARM Templates
 - Define **parameters** for environment-specific values.
@@ -22,6 +24,7 @@ Azure Resource Manager (ARM) templates are JSON files that declare the desired s
 - Validate and deploy via **Azure CLI / PowerShell / Portal**.
 
 ---
+
 
 ## Template Structure and Anatomy
 - **$schema**: Template schema URL.
@@ -45,19 +48,30 @@ Azure Resource Manager (ARM) templates are JSON files that declare the desired s
 
 ---
 
-## Deployment Process
-1. Author `template.json` and optional parameter file.
-2. Submit to ARM (`az deployment group/sub create`).
-3. ARM validates schema and calculates a graph of resources.
-4. Dependencies run in order; independent resources deploy in parallel.
-5. ARM calls resource providers to create/update resources.
-6. Outputs returned; deployment recorded for auditing.
+
+```json
+{
+  "$schema": "",
+  "contentVersion": "",
+  "parameters": {},
+  "variables": {},
+  "functions": [],
+  "resources": [],
+  "outputs": {}
+}
+
+```
 
 ---
 
-## Practical Examples (Snippets)
+---
+
+## Practical Examples
+
 
 ### Storage Account
+
+
 ```json
 {
   "type": "Microsoft.Storage/storageAccounts",
@@ -67,3 +81,8 @@ Azure Resource Manager (ARM) templates are JSON files that declare the desired s
   "sku": { "name": "Standard_LRS" },
   "kind": "StorageV2"
 }
+
+
+```
+
+---
