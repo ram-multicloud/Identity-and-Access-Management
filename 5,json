@@ -1,0 +1,93 @@
+## Git Works:
+
+Git is built on two core concepts:
+
+| Concept | What It Means |
+|---|---|
+| **Cryptographic Hashing (SHA-1)** | Every commit gets a unique 40-character fingerprint. Even a tiny change in content produces a completely different hash — this is how Git guarantees data integrity. |
+| **Snapshots** | Unlike some version control systems that store file-by-file differences, Git stores a full snapshot of your project at each commit. |
+
+### Refs (References) — Git's "Pointers"
+
+Think of refs as labeled bookmarks pointing to specific commits:
+
+| Ref Type | Points To | Behavior |
+|---|---|---|
+| **Branch** | The *latest* commit in a line of work | Moves forward automatically as you commit |
+| **Tag** | One specific commit | Stays fixed — doesn't move unless you force it to |
+| **HEAD** | Ideally, a branch or tag | Tells Git "where you currently are" |
+| **Remote ref** | A branch on a remote repo (e.g., `origin/main`) | Tracks the state of the remote |
+
+> **Detached HEAD** — Normally, HEAD points to a *branch* (like `master`), which in turn points to a commit. If HEAD points *directly* to a commit instead of a branch, you're in a **detached HEAD** state. Any new commits here aren't attached to a branch and can be lost once you switch away — unless you create a branch to save them.
+
+**Analogy:** Imagine a branch as a sticky note that always moves to the newest page you write in a notebook (chapter). A tag is like a sticky note glued permanently to one specific page — it won't move even if you keep writing.
+
+---
+
+## Real-World Scenarios — Why Branches & Tags Exist
+
+Git provides **branches** and **tags** specifically to handle situations like these:
+
+### Scenario 1: A product like VS Code
+- Software like VS Code releases numbered **versions** (v1.85, v1.86, etc.)
+- **Tags** are perfect here — each release gets a permanent marker (e.g., `v1.85.0`) so you can always go back to exactly that version.
+
+### Scenario 2: A product like an HRMS (HR Management System) sold to customers
+- Different customers may need **customer-specific changes** (custom fields, integrations, etc.)
+- **Branches** work well here — you can maintain a separate branch per customer while still being able to merge in common updates from the main product.
+
+---
+
+## Git Branch
+
+- By default, when you start working in Git, you're on a branch — traditionally called `master` (or `main` in modern setups).
+- A branch lets you develop features, fixes, or experiments **in isolation** without affecting the main codebase.
+- 📖 Further reading: [Atlassian — Using Branches](https://www.atlassian.com/git/tutorials/using-branches)
+
+### Merging — Bringing Changes Together
+
+To bring changes from one branch into another, you perform a **merge**:
+
+```bash
+git checkout <destination-branch>   # Step 1: Go to the branch you want to update
+git merge <source-branch>           # Step 2: Pull in changes from another branch
+```
+
+**Example:** To bring changes from `feature-login` into `master`:
+```bash
+git checkout master
+git merge feature-login
+```
+
+📖 Further reading: [Atlassian — Git Merge](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+
+### Types of Merges
+
+| Merge Type | When It Happens | Result |
+|---|---|---|
+| **Fast-Forward** | Destination branch has no new commits since it diverged | Destination branch pointer simply moves forward — no new merge commit created |
+| **Three-Way Merge** | Both branches have new, different commits since they diverged | Git creates a new **merge commit** combining both histories |
+
+#### Three-Way Merge — Visual
+
+**Before merging** (branches have diverged):
+![Before merge](https://i0.wp.com/dam-cdn.atl.orangelogic.com/AssetLink/ljxme1dfx4e5606wi12a6k388038dvuf.png?w=750&ssl=1)
+
+**After merging** (a new merge commit ties both histories together):
+![After merge](https://i0.wp.com/dam-cdn.atl.orangelogic.com/AssetLink/d54018nq423762vgh32g4m2o0d4iti3g.png?w=750&ssl=1)
+
+#### Fast-Forward Merge — Visual
+
+![Fast-forward merge](https://dam-cdn.atl.orangelogic.com/AssetLink/1gy65ei1lk08lam0qoh604b073i6mn56.svg)
+
+> **Key takeaway:** A fast-forward merge is possible only when there's a straight line of history to "catch up" to. If both branches have independently moved on, Git needs a three-way merge to combine them.
+
+---
+
+## Quick Recap
+
+- Git relies on **hashing (SHA-1)** and **snapshots** for integrity and history.
+- **Refs** (branch, tag, HEAD, remote) are pointers that tell Git where things are.
+- Use **tags** for fixed release points (like software versions).
+- Use **branches** for ongoing, isolated work (like customer-specific features).
+- **Merging** brings branches together — either as a simple **fast-forward** or a **three-way merge** with a dedicated merge commit.
